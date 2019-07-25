@@ -75,7 +75,7 @@ class SearchBranch(object):
 class Generate(object):
     def on_get(self, req, resp):
         doc = {}
-        name = req.get_header('name', required = True)
+        name = req.get_param('name', required = True)
         doc['token'] = genearte(name)
         resp.body = json.dumps(doc, ensure_ascii = False)
         resp.status = falcon.HTTP_200
