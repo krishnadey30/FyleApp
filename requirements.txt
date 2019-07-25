@@ -1,0 +1,4 @@
+falcon==2.0.0
+pkg-resources==0.0.0
+psycopg2-binary==2.8.3
+PyJWT==1.7.1
