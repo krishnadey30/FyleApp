@@ -58,7 +58,7 @@ class SearchBranch(object):
 
         if not token_is_valid(token, account_id):
             description = ('The provided auth token is not valid. '
-		                   'Please request a new token and try again.')
+		                   'Please request a new token and try again.{}'.format(account_id))
 
             raise falcon.HTTPUnauthorized('Authentication required',
 		                                  description)
@@ -67,6 +67,11 @@ class SearchBranch(object):
         city = req.get_param('city',required = True)
         offset = req.get_param('offset')
         limit = req.get_param('limit')
+        if offset is None:
+            offset = 0
+        if limit is None:
+            limit = 10
+
         branches = branchDetails(bank_name, city, limit, offset)
         doc['branches']=branches
         resp.body = json.dumps(doc, ensure_ascii = False)
