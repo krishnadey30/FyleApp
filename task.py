@@ -2,11 +2,12 @@ import os
 import psycopg2
 
 DATABASE_URL = os.environ['DATABASE_URL']
-
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+def database_connection():
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    return conn.cursor()
 
 def bankDetails(ifsc):
-    cur = conn.cursor()
+    cur = database_connection()
     query = "select * from branches where ifsc = '{}'".format(ifsc)
     cur.execute(query)
     rows = cur.fetchall()
@@ -21,7 +22,7 @@ def bankDetails(ifsc):
     return data
 
 def branchDetails(bank_name, city, limit = 20, offset = 0):
-    cur = conn.cursor()
+    cur = database_connection()
     query = "select * from bank_branches where bank_name = '{}' \
             and city = '{}' LIMIT {} OFFSET {}".format(bank_name, city, limit, offset)
     cur.execute(query)

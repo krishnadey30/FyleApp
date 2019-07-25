@@ -58,7 +58,7 @@ class SearchBranch(object):
 
         if not token_is_valid(token, account_id):
             description = ('The provided auth token is not valid. '
-		                   'Please request a new token and try again.{}'.format(account_id))
+		                   'Please request a new token and try again')
 
             raise falcon.HTTPUnauthorized('Authentication required',
 		                                  description)
